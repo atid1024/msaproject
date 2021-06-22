@@ -4,7 +4,7 @@ public class RoomDeleted extends AbstractEvent {
 
     private Long roomId;
     private String status;
-    private String desc;
+    private String describe;
     private Long reviewCnt;
     private String lastAction;
 
@@ -26,12 +26,12 @@ public class RoomDeleted extends AbstractEvent {
     public void setStatus(String status) {
         this.status = status;
     }
-    public String getDesc() {
-        return desc;
+    public String getDescribe() {
+        return describe;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDescribe(String describe) {
+        this describe = describe;
     }
     public Long getReviewCnt() {
         return reviewCnt;

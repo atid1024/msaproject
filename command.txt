@@ -1,0 +1,54 @@
+http GET localhost:8088/orders/2 "Authorization: Bearer $TOKEN"
+http GET localhost:8088/orders/2 "Authorization: Bearer {$TOKEN}"
+http GET localhost:8088/orders/ "Authorization: Bearer {$TOKEN}"
+http GET localhost:8088/orders/ "Authorization: Bearer $TOKEN"
+http GET localhost:8088/orders/2 "Authorization: Bearer $TOKEN"
+http GET localhost:8088/orders/5 "Authorization: Bearer $TOKEN"
+http GET localhost:8088/orders/3 "Authorization: Bearer $TOKEN"
+http POST http://localhost:8088/orders storeName=KYCSHOP itemName="사랑의 고백 꽃다발" qty=1 itemPrice=64000 userName=zasmin "Authorization: Bearer eyJhbGciO
+http GET localhost:8088/deliveries/ "Authorization: Bearer $TOKEN"
+http GET localhost:8084/deliveries/ "Authorization: Bearer $TOKEN"
+http GET localhost:8084/deliveries/
+http POST http://localhost:8088/orders storeName=KYCSHOP itemName="영원의 사랑  꽃다발" qty=1 itemPrice=64000 userName=zasmin "Authorization: Bearer eyJhbGci
+http GET localhost:8088/orders/ "Authorization: Bearer $TOKEN"
+http http://localhost:8081/myPages
+http DELETE http://localhost:8081/orders/9
+http http://localhost:8081/myPages
+http post http://localhost:8082/deliveries itemName="생일 축하 꽃다발" orderId=5 deliveryStatus="departed"
+http  http://localhost:8082/deliveries itemName="생일 축하 꽃다발" orderId=5 deliveryStatus="departed"
+http  http://localhost:8082/deliveries/ itemName="생일 축하 꽃다발" orderId=5 deliveryStatus="departed"
+http  http://localhost:8084/deliveries/ itemName="생일 축하 꽃다발" orderId=5 deliveryStatus="departed"
+http http://localhost:8081/myPages
+git clone https://github.com/atid1024/airbnb_project.git
+git clone https://github.com/atid1024/airbnb_project.git
+git clone https://github.com/atid1024/airbnb_project.git
+http localhost:8082/rooms
+http POST localhost:8082/rooms desc="Beautiful House"
+http POST localhost:8082/rooms status="available" desc="Beautiful House" reviewCnt=2 lastAction="reserved"
+http POST localhost:8082/rooms desc="Beautiful House"
+http POST localhost:8088/rooms desc="아름다운 해변가의 집"
+http localhost:8088/rooms
+http POST localhost:8088/rooms desc="수영장이 있는 넓은 정원을 가진 집"
+http POST localhost:8088/rooms desc="시원한 계곡 옆에 위치한 집"
+http localhost:8088/rooms
+http POST localhost:8088/reservations roomId=1 status=reqReserve
+http localhost:8088/rooms
+http localhost:8088/reservations
+http localhost:8088/payments
+http localhost:8088/messages
+http POST localhost:8088/reservations roomId=1 status=reqReserve
+http GET localhost:8088/reviews
+http POST localhost:8088/reviews roomId=1 content="전망이 아주 좋은집 모두에게 추천합니다."
+http GET localhost:8088/reviews
+http GET localhost:8088/rooms
+http PATCH localhost:8088/reviews/1 content="Good Room. But Expensive"
+http GET localhost:8088/reviews
+http DELETE localhost:8088/reviews/1
+http GET localhost:8088/rooms
+http GET localhost:8088/messages
+http POST localhost:8088/rooms desc="아름다운 해변가의 집"
+http POST localhost:8088/rooms desc="수영장이 있는 넓은 정원을 가진 집"
+http POST localhost:8088/rooms desc="시원한 계곡 옆에 위치한 집"
+http POST localhost:8088/reservations roomId=1 status=reqReserve
+http POST localhost:8088/rooms desc="This is the cool and hot place"
+http GET localhost:8082/rooms

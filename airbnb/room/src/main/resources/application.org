@@ -11,6 +11,12 @@ spring:
     username: postgres
     password: wjdgid0103
 
+  # jpa:
+  #   properties:
+  #     hibernate:
+  #       show_sql: true
+  #       format_sql: true
+
   jpa:
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
@@ -22,6 +28,7 @@ spring:
         ddl-auto: update
         temp:
           use_jdbc_metadata_defaults: false
+
   cloud:
     stream:
       kafka:
@@ -54,11 +61,6 @@ server:
 
 spring:
   profiles: docker
-  datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://64.10.24.2:5432/airbnb
-    username: postgres
-    password: wjdgid0103
   cloud:
     stream:
       kafka:

@@ -9,7 +9,7 @@ public class Roomview {
 
         @Id
         private Long roomId;
-        private String desc;
+        private String describe;
         private Long reviewCnt;
         private String roomStatus;
         private Long rsvId;
@@ -26,12 +26,12 @@ public class Roomview {
             this.roomId = roomId;
         }
 
-        public String getDesc() {
-            return desc;
+        public String getDescribe() {
+            return describe;
         }
 
-        public void setDesc(String desc) {
-            this.desc = desc;
+        public void setDescribe(String describe) {
+            this.describe = describe;
         }
 
         public Long getReviewCnt() {
