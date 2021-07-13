@@ -7,7 +7,7 @@ spring:
 
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://64.10.24.2:5432/airbnb
+    url: jdbc:postgresql://64.10.24.3:5432/airbnb
     username: postgres
     password: wjdgid0103
 
@@ -56,14 +56,14 @@ spring:
   profiles: docker
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://64.10.24.2:5432/airbnb
+    url: jdbc:postgresql://64.10.24.3:5432/airbnb
     username: postgres
     password: wjdgid0103
   cloud:
     stream:
       kafka:
         binder:
-          brokers: my-kafka.kafka.svc.cluster.local:9092
+          brokers: 64.10.24.4:9092
         streams:
           binder:
             configuration:

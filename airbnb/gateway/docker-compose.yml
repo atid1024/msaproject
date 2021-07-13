@@ -1,0 +1,24 @@
+version: '2'
+
+services:
+  gateway:
+    container_name: airbnb-gateway
+    image: zasmin/airbnb-gateway:v1
+    restart: always
+    networks:
+     - db_network
+    ports:
+     - 8088:8080
+  room:
+    container_name: airbnb-room
+    image: zasmin/airbnb-room:v2
+    restart: always
+    networks:
+     - db_network
+    ports:
+     - 8082:8080
+
+networks:
+  db_network:
+    external:
+      name: db_network

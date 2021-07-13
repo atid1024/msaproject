@@ -23,13 +23,13 @@ git clone https://github.com/atid1024/airbnb_project.git
 git clone https://github.com/atid1024/airbnb_project.git
 git clone https://github.com/atid1024/airbnb_project.git
 http localhost:8082/rooms
-http POST localhost:8082/rooms desc="Beautiful House"
-http POST localhost:8082/rooms status="available" desc="Beautiful House" reviewCnt=2 lastAction="reserved"
-http POST localhost:8082/rooms desc="Beautiful House"
-http POST localhost:8088/rooms desc="아름다운 해변가의 집"
+http POST localhost:8082/rooms describe="Beautiful House"
+http POST localhost:8082/rooms status="available" describe="Beautiful House" reviewCnt=2 lastAction="reserved"
+http POST localhost:8082/rooms describe="Beautiful House"
+http POST localhost:8088/rooms describe="아름다운 해변가의 집"
 http localhost:8088/rooms
-http POST localhost:8088/rooms desc="수영장이 있는 넓은 정원을 가진 집"
-http POST localhost:8088/rooms desc="시원한 계곡 옆에 위치한 집"
+http POST localhost:8088/rooms describe="수영장이 있는 넓은 정원을 가진 집"
+http POST localhost:8088/rooms describe="시원한 계곡 옆에 위치한 집"
 http localhost:8088/rooms
 http POST localhost:8088/reservations roomId=1 status=reqReserve
 http localhost:8088/rooms
@@ -46,9 +46,17 @@ http GET localhost:8088/reviews
 http DELETE localhost:8088/reviews/1
 http GET localhost:8088/rooms
 http GET localhost:8088/messages
-http POST localhost:8088/rooms desc="아름다운 해변가의 집"
-http POST localhost:8088/rooms desc="수영장이 있는 넓은 정원을 가진 집"
-http POST localhost:8088/rooms desc="시원한 계곡 옆에 위치한 집"
+http POST localhost:8088/rooms describe="아름다운 해변가의 집"
+http POST localhost:8088/rooms describe="수영장이 있는 넓은 정원을 가진 집"
+http POST localhost:8088/rooms describe="시원한 계곡 옆에 위치한 집"
 http POST localhost:8088/reservations roomId=1 status=reqReserve
-http POST localhost:8088/rooms desc="This is the cool and hot place"
+http POST localhost:8088/rooms describe="This is the cool and hot place"
 http GET localhost:8082/rooms
+
+mvn package -B -Dmaven.test.skip=true
+java -jar target/XXXXX-0.0.1-SNAPSHOT.jar 
+docker build -t zasmin/airbnb-gateway:v1 .
+docker push zasmin/airbnb-gateway:v1
+
+docker exec -it kafka kafka-console-producer.sh --topic airbnb --broker-list 64.10.24.4:9092
+docker exec -it kafka kafka-console-consumer.sh --topic airbnb --bootstrap-server 64.10.24.4:9092
