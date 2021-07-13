@@ -31,7 +31,7 @@ public class RoomDeleted extends AbstractEvent {
     }
 
     public void setDescribe(String describe) {
-        this describe = describe;
+        this.describe = describe;
     }
     public Long getReviewCnt() {
         return reviewCnt;

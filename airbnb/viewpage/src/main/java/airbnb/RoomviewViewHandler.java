@@ -30,7 +30,7 @@ public class RoomviewViewHandler {
             Roomview roomview = new Roomview();
             // view 객체에 이벤트의 Value 를 set 함
             roomview.setId(roomRegistered.getRoomId());
-            roomview.setDesc(roomRegistered.getDesc());
+            roomview.setDescribe(roomRegistered.getDescribe());
             roomview.setReviewCnt(roomRegistered.getReviewCnt());
             roomview.setRoomStatus(roomRegistered.getStatus());
             // view 레파지 토리에 save
@@ -54,7 +54,7 @@ public class RoomviewViewHandler {
             if( roomviewOptional.isPresent()) {
                 Roomview roomview = roomviewOptional.get();
                 // view 객체에 이벤트의 eventDirectValue 를 set 함
-                    roomview.setDesc(roomModified.getDesc());
+                    roomview.setDescribe(roomModified.getDescribe());
                     roomview.setReviewCnt(roomModified.getReviewCnt());
                     roomview.setRoomStatus(roomModified.getStatus());
                 // view 레파지 토리에 save

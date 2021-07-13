@@ -15,7 +15,7 @@
 // 시나리오
 ////////////////
 1. ROOM 등록
-http POST localhost:8088/rooms desc="Beautiful House"  
+http POST localhost:8088/rooms describe="Beautiful House"  
 2. ROOM 등록 확인
 http GET localhost:8088/rooms
 3. 예약 등록
