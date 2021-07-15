@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: reservation
-          image: 052937454741.dkr.ecr.ap-northeast-2.amazonaws.com/user05-reservation:1.0
+          image: zasmin/airbnb-reservation:v1
           ports:
             - containerPort: 8080
           readinessProbe:

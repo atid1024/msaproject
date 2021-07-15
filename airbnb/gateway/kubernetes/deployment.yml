@@ -17,6 +17,6 @@ spec:
     spec:
       containers:
         - name: gateway
-          image: 052937454741.dkr.ecr.ap-northeast-2.amazonaws.com/user05-gateway:1.0
+          image: zasmin/airbnb-gateway:v1
           ports:
             - containerPort: 8080

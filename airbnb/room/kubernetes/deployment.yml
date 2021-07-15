@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: room
-          image: 052937454741.dkr.ecr.ap-northeast-2.amazonaws.com/user05-room:1.0
+          image: zasmin/airbnb-room:v1
           ports:
             - containerPort: 8080
           readinessProbe:
