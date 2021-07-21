@@ -1,0 +1,12 @@
+# Edited by Atid1024 210721 09:24
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: postgresql-db-disk
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: default
+  resources:
+    requests:
+      storage: 5Gi
