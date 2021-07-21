@@ -60,3 +60,4 @@ docker push zasmin/airbnb-gateway:v1
 
 docker exec -it kafka kafka-console-producer.sh --topic airbnb --broker-list 64.10.24.4:9092
 docker exec -it kafka kafka-console-consumer.sh --topic airbnb --bootstrap-server 64.10.24.4:9092
+

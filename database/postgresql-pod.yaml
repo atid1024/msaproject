@@ -1,0 +1,28 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: postgres-db
+spec:
+  containers:
+  - name: postgres-db
+    image: postgres
+    ports:
+    - containerPort: 5432
+
+    volumeMounts:
+    - name: volume
+      mountPath: /data
+
+    env:
+      - name: POSTGRES_USER
+        value: postgres
+      - name: POSTGRES_PASSWORD
+        value: wjdgid0103
+      - name: POSTGRES_DB
+        value: airbnb
+      - name: PGDATA
+        value: /data/pgdata
+  volumes:
+    - name: volume
+      persistentVolumeClaim:
+        claimName: postgresql-data
