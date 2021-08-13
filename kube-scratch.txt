@@ -1,0 +1,175 @@
+sudo -i
+lsb_release -a
+free -m
+swapoff -a
+sysctl -w net.ipv4.ip_forward=1
+cat /proc/sys/net/ipv4/ip_forward
+# Docker 설치
+apt install docker.io -y
+# kubernetes binary component download
+wget https://storage.googleapis.com/kubernetes-release/release/v1.9.11/kubernetes-server-linux-amd64.tar.gz
+
+# Kubernetes 실행 파일 download
+tar -xzf kubernetes-server-linux-amd64.tar.gz
+cd kubernetes/server/bin/
+mv kubectl kubelet kube-apiserver kube-controller-manager kube-scheduler kube-proxy /usr/bin/
+kubectl version --short
+rm *.gz
+
+# kubelet 실행
+mkdir -p /etc/kubernetes/manifests
+kubelet --pod-manifest-path /etc/kubernetes/manifests &> /etc/kubernetes/kubelet.log &
+ps -au | grep kubelet
+head /etc/kubernetes/kubelet.log
+cat <<EOF > /etc/kubernetes/manifests/kubelet-test.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kubelet-test
+spec:
+  containers:
+  - name: alpine
+    image: alpine
+    command: ["/bin/sh", "-c"]
+    args: ["while true; do echo UENGINE-MSAEZ; sleep 15; done"]
+EOF
+
+# etcd 설치
+docker ps
+docker logs 8b2e09881607
+wget https://github.com/etcd-io/etcd/releases/download/v3.2.26/etcd-v3.2.26-linux-amd64.tar.gz
+tar -xzf etcd-v3.2.26-linux-amd64.tar.gz
+pwd
+ls
+mv etcd-v3.2.26-linux-amd64/etcd /usr/bin/etcd
+mv etcd-v3.2.26-linux-amd64/etcdctl /usr/bin/etcdctl
+rm -rf etcd-v3.2.26-linux-amd64 etcd-v3.2.26-linux-amd64.tar.gz
+etcd --listen-client-urls http://0.0.0.0:2379 --advertise-client-urls http://localhost:2379 &> /etc/kubernetes/etcd.log &
+etcdctl cluster-health
+
+# kubernetes apiserver 설치
+kubectl get all --all-namespaces
+kube-apiserver --etcd-servers=http://localhost:2379 --service-cluster-ip-range=10.0.0.0/16 --bind-address=0.0.0.0 --insecure-bind-address=0.0.0.0 &> /etc/kubernetes/apiserver.log &
+ps -au | grep apiserver
+head /etc/kubernetes/apiserver.log
+curl http://localhost:8080/api/v1
+kubectl cluster-info
+
+# cluster 설정
+kubectl config set-cluster uengine --server=http://localhost:8080
+kubectl config view
+kubectl config set-context uengine --cluster=uengine
+kubectl config view
+kubectl config use-context uengine
+kubectl config view
+kubectl get all --all-namespaces
+kubectl get no
+
+# kubelet 재설정
+ps -ef|grep kubelet
+kill -9 5066
+ps -ef|grep kubelet
+kubelet --register-node --kubeconfig="$HOME/.kube/config" &> /etc/kubernetes/kubelet.log &
+ps -au | grep kubelet
+head /etc/kubernetes/kubelet.log
+kubectl get nodes
+
+ls /etc/kubernetes/manifests
+cat <<EOF > ./kube-test.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kube-test
+  labels:
+    app: kube-test
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    ports:
+    - name:  http
+      containerPort: 80
+      protocol: TCP
+EOF
+
+kubectl create -f kube-test.yaml
+kubectl get pods
+kubectl get nodes
+kubectl delete pods/kube-test
+kubectl get all
+
+# kubelet 재실행
+pkill -f kubelet
+kubelet --register-node --kubeconfig="$HOME/.kube/config" &> /etc/kubernetes/kubelet.log &
+ps -au|grep kubelet
+ls -al $HOME/.kube/config
+cat $HOME/.kube/config
+kubectl get nodes
+docker ps
+ls
+kubectl create -f kube-test.yaml
+kubectl get po
+kubectl describe po kube-test
+
+# kube-scheduler 실행
+kube-scheduler --master=http://localhost:8080/ &> /etc/kubernetes/scheduler.log &
+ps -au | grep scheduler
+head /etc/kubernetes/scheduler.log
+kubectl get pods
+kubectl delete pods --all
+
+cat <<EOF > ./replica-test.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: replica-test
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: replica-test
+  template:
+    metadata:
+      name: replica-test
+      labels:
+        app: replica-test
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - name:  http
+          containerPort: 80
+          protocol: TCP
+EOF
+
+kubectl create -f replica-test.yaml
+kubectl get po
+kubectl get all
+
+# kube-controller 설치
+kube-controller-manager --master=http://localhost:8080 &> /etc/kubernetes/controller-manager.log &
+kubectl get all
+kubectl rollout resume deploy/replica-test
+kubectl get all
+kubectl rollout status deploy/replica-test
+
+# kube-proxy 설치
+cat <<EOF > ./service-test.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: replica-test
+spec:
+  type: ClusterIP
+  ports:
+  - name: http
+    port: 80
+  selector:
+    app: replica-test
+EOF
+kubectl create -f service-test.yaml
+kubectl get svc
+curl 10.0.214.84:80
+kube-proxy --master=http://localhost:8080/ &> /etc/kubernetes/proxy.log &
+curl 10.0.214.84:80
